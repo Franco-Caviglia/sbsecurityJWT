@@ -1,16 +1,16 @@
-package com.demo.jwtsec.auth.Requests;
+package com.demo.jwtsec.loginjwt.auth.Response;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//Respuesta que devuelve el token, no importa si es registro o login;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LoginRequest {
-
-    String username;
-    String password;
+public class AuthResponse {
+    String token;
 }

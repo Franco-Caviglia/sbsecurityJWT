@@ -1,6 +1,6 @@
-package com.demo.jwtsec.Repository;
+package com.demo.jwtsec.loginjwt.auth.Repository;
 
-import com.demo.jwtsec.User.User;
+import com.demo.jwtsec.loginjwt.auth.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

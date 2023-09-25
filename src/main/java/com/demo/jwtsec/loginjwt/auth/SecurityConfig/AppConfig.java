@@ -1,6 +1,6 @@
-package com.demo.jwtsec.SecurityConfig;
+package com.demo.jwtsec.loginjwt.auth.SecurityConfig;
 
-import com.demo.jwtsec.Repository.UserRepository;
+import com.demo.jwtsec.loginjwt.auth.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

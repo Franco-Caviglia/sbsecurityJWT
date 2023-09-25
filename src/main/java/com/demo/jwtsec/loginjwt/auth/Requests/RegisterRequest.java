@@ -1,4 +1,4 @@
-package com.demo.jwtsec.auth.Requests;
+package com.demo.jwtsec.loginjwt.auth.Requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,5 +15,5 @@ public class RegisterRequest {
     String password;
     String firstname;
     String lastname;
-    String country;
+    String email;
 }

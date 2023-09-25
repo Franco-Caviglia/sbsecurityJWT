@@ -1,9 +1,9 @@
-package com.demo.jwtsec.auth;
+package com.demo.jwtsec.loginjwt.auth;
 
-import com.demo.jwtsec.auth.Requests.LoginRequest;
-import com.demo.jwtsec.auth.Requests.RegisterRequest;
-import com.demo.jwtsec.auth.Response.AuthResponse;
-import com.demo.jwtsec.auth.Service.AuthService;
+import com.demo.jwtsec.loginjwt.auth.Requests.LoginRequest;
+import com.demo.jwtsec.loginjwt.auth.Requests.RegisterRequest;
+import com.demo.jwtsec.loginjwt.auth.Response.AuthResponse;
+import com.demo.jwtsec.loginjwt.auth.Service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

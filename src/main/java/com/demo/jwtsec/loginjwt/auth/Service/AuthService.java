@@ -1,12 +1,14 @@
-package com.demo.jwtsec.auth.Service;
+package com.demo.jwtsec.loginjwt.auth.Service;
 
-import com.demo.jwtsec.Jwt.Service.JWTService;
-import com.demo.jwtsec.Repository.UserRepository;
-import com.demo.jwtsec.User.Role;
-import com.demo.jwtsec.User.User;
-import com.demo.jwtsec.auth.Requests.LoginRequest;
-import com.demo.jwtsec.auth.Requests.RegisterRequest;
-import com.demo.jwtsec.auth.Response.AuthResponse;
+import com.demo.jwtsec.loginjwt.auth.Jwt.Service.JWTService;
+import com.demo.jwtsec.loginjwt.auth.Repository.UserRepository;
+import com.demo.jwtsec.loginjwt.auth.User.Role;
+import com.demo.jwtsec.loginjwt.auth.User.User;
+import com.demo.jwtsec.loginjwt.auth.Requests.LoginRequest;
+import com.demo.jwtsec.loginjwt.auth.Requests.RegisterRequest;
+import com.demo.jwtsec.loginjwt.auth.Response.AuthResponse;
+import com.demo.jwtsec.mailsender.model.Email;
+import com.demo.jwtsec.mailsender.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +24,7 @@ public class AuthService {
     private final JWTService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-
+    private final EmailService emailService;
     public AuthResponse login(LoginRequest loginRequest) {
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
@@ -39,10 +41,10 @@ public class AuthService {
                 .lastname(registerRequest.getLastname())
                 .username(registerRequest.getUsername())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .country(registerRequest.getCountry())
                 .role(Role.USER)
                 .build();
         userRepository.save(user);
+        emailService.sendEmailRegister(new Email(), registerRequest);
 
         return AuthResponse.builder()
                 .token(jwtService.getToken(user))

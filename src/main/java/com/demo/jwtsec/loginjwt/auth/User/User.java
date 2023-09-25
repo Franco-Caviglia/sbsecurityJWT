@@ -1,4 +1,4 @@
-package com.demo.jwtsec.User;
+package com.demo.jwtsec.loginjwt.auth.User;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "persons", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@Table(name = "admins", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User implements UserDetails {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;

@@ -1,0 +1,12 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: huesitosvetsystem@gmail.com
+    password: zkrl hjje wcoc rxiw
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

@@ -1,6 +1,6 @@
-package com.demo.jwtsec.Jwt;
+package com.demo.jwtsec.loginjwt.auth.Jwt;
 
-import com.demo.jwtsec.Jwt.Service.JWTService;
+import com.demo.jwtsec.loginjwt.auth.Jwt.Service.JWTService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

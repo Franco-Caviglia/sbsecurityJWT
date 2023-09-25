@@ -1,4 +1,4 @@
-package com.demo.jwtsec.controller;
+package com.demo.jwtsec.loginjwt.auth.controller;
 
 
 import lombok.RequiredArgsConstructor;
