@@ -1,12 +1,10 @@
-package com.demo.jwtsec.entities.shifts;
+package com.demo.jwtsec.entities.shifts.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -21,6 +19,15 @@ public class Shift {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "pet_name")
+    private String petName;
+    @Column(name = "date")
     private LocalDate date;
+
+    @Column(name = "time")
     private LocalTime time;
+
+    @Column(unique = true)
+    private LocalDateTime dateTime;
+
 }

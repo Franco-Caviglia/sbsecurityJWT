@@ -1,5 +1,6 @@
-package com.demo.jwtsec.clients.models;
+package com.demo.jwtsec.entities.clients.models;
 
+import com.demo.jwtsec.entities.shifts.models.Shift;
 import com.demo.jwtsec.loginjwt.auth.User.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,8 +30,6 @@ public class Customer implements UserDetails {
     private String password;
     private String email;
     private String phone;
-
-    private Shift shifts;
     private Role role;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -38,6 +37,15 @@ public class Customer implements UserDetails {
                     joinColumns = @JoinColumn(name = "customer_id"),
                     inverseJoinColumns = @JoinColumn(name = "pet_id"))
     private List<Pets> pets = new ArrayList<>();
+
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+            @JoinTable(name = "customer-shifts",
+                    joinColumns = @JoinColumn(name = "customer_id"),
+                    inverseJoinColumns = @JoinColumn(name = "shift_id"))
+    private List<Shift> shifts = new ArrayList<>();
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

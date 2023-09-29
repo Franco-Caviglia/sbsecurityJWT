@@ -17,16 +17,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "admins", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@Table(name = "\"users\"", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User implements UserDetails {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     @Column(nullable = false)
     String username;
     String password;
-    String firstname;
-    String lastname;
-    String country;
+    String phone;
+    String email;
     @Enumerated(EnumType.STRING)
     Role role;
 

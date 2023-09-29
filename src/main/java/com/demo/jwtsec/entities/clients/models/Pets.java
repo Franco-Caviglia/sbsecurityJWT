@@ -1,4 +1,4 @@
-package com.demo.jwtsec.clients.models;
+package com.demo.jwtsec.entities.clients.models;
 
 
 import jakarta.persistence.*;

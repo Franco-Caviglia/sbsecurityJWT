@@ -1,5 +1,6 @@
 package com.demo.jwtsec.mailsender.service;
 
+import com.demo.jwtsec.entities.shifts.models.dtos.ShiftRequest;
 import com.demo.jwtsec.loginjwt.auth.Requests.RegisterRequest;
 import com.demo.jwtsec.mailsender.model.Email;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String sender;
 
-    public String sendEmailRegister(Email email, @RequestBody RegisterRequest registerRequest){
+    public void sendEmailRegister(Email email, @RequestBody RegisterRequest registerRequest){
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setFrom("Huesitos <"+sender+">");
@@ -27,10 +28,10 @@ public class EmailService {
             mailMessage.setText("Bienvenido a nuestro sitio web!");
 
             javaMailSender.send(mailMessage);
-            return "Email sent successfully";
         } catch (Exception e){
-            return "Email sending error";
         }
     }
 
+    public void sendEmailShiftSubmit(Email email, ShiftRequest shiftRequest) {
+    }
 }

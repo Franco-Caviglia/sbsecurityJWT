@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 //Aqui estan los endpoints protegidos;
+//TODO configrurar para usuario y crear controlador para admin;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor

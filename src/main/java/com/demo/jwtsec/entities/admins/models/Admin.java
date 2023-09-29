@@ -1,4 +1,4 @@
-package com.demo.jwtsec.admins.models;
+package com.demo.jwtsec.entities.admins.models;
 
 
 import com.demo.jwtsec.loginjwt.auth.User.Role;
