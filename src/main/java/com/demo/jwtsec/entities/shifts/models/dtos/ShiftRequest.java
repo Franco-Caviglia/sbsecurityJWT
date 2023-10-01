@@ -16,6 +16,7 @@ import java.time.LocalTime;
 @Builder
 public class ShiftRequest {
 
+    private String status;
     private String petName;
     private LocalDate date;
     private LocalTime time;

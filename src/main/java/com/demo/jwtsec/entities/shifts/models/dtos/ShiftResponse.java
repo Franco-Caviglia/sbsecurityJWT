@@ -14,6 +14,9 @@ import java.time.LocalTime;
 @Builder
 public class ShiftResponse {
 
+    private String petName;
     private LocalDate date;
     private LocalTime time;
+    private String status;
+
 }

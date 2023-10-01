@@ -27,6 +27,8 @@ public class Shift {
     @Column(name = "time")
     private LocalTime time;
 
+    private String status;
+
     @Column(unique = true)
     private LocalDateTime dateTime;
 
