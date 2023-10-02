@@ -75,4 +75,18 @@ public class ShiftService {
         answer.put("delete", Boolean.TRUE);
         return answer;
     }
+
+    public Shift editShifts(Long id, ShiftResponse shiftResponse) {
+        Shift shift = shiftRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Shift not found with id: " + id));
+
+        shift.setPetName(shiftResponse.getPetName());
+        shift.setDate(shiftResponse.getDate());
+        shift.setTime(shiftResponse.getTime());
+
+        LocalDateTime shiftTime = LocalDateTime.parse(shift.getDate() + "T" + shift.getTime());
+        shift.setDateTime(shiftTime);
+
+        return shift;
+    }
 }

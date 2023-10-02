@@ -73,4 +73,21 @@ public class AuthService {
                 .token(jwtService.getToken(admin))
                 .build();
     }
+
+    public AuthResponse registerCustomer(RegisterRequest registerRequest){
+        Customer customer = Customer.builder()
+                .email(registerRequest.getEmail())
+                .phone(registerRequest.getPhone())
+                .username(registerRequest.getUsername())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .role(Role.USER)
+                .build();
+
+        customerRepository.save(customer);
+        emailService.sendEmailRegister(new Email(), registerRequest);
+
+        return AuthResponse.builder()
+                .token(jwtService.getToken(customer))
+                .build();
+    }
 }
