@@ -25,15 +25,14 @@ public class AuthService {
 
     private final AdminRepository adminRepository;
     private final CustomerRepository customerRepository;
-    private final UserRepository userRepository;
     private final JWTService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final EmailService emailService;
-    public AuthResponse login(LoginRequest loginRequest) {
+    public AuthResponse loginAdmin(LoginRequest loginRequest) {
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
-        UserDetails user = userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
+        UserDetails user = adminRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
         String token = jwtService.getToken(user);
         return AuthResponse.builder()
                 .token(token)
@@ -88,6 +87,15 @@ public class AuthService {
 
         return AuthResponse.builder()
                 .token(jwtService.getToken(customer))
+                .build();
+    }
+
+    public AuthResponse loginUser(LoginRequest loginRequest) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
+        UserDetails user = customerRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
+        String token = jwtService.getToken(user);
+        return AuthResponse.builder()
+                .token(token)
                 .build();
     }
 }
