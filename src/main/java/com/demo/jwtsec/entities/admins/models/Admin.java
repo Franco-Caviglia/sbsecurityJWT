@@ -31,8 +31,9 @@ public class Admin implements UserDetails {
     private String phone;
     private String password;
 
-    private Role role;
+    private String rolName;
 
+    private Role role;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority((role.name())));

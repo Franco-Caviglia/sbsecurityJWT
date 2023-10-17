@@ -25,6 +25,12 @@ public class AdminController {
     private final ShiftService shiftService;
     //TODO acciones permitidas para admins -> readUserProfiles();
 
+    //Testing;
+    @GetMapping("/test")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String welcome(){
+        return "HOla";
+    }
     //-------------------- Shifts -----------------------------------------------------
 
     @PostMapping("/addShift")
