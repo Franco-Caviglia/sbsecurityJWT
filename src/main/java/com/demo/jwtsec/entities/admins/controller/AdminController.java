@@ -1,13 +1,13 @@
 package com.demo.jwtsec.entities.admins.controller;
 
-import com.demo.jwtsec.entities.clients.controller.CustomerController;
-import com.demo.jwtsec.entities.clients.models.Customer;
+
 import com.demo.jwtsec.entities.clients.models.dtos.CustomerResponse;
 import com.demo.jwtsec.entities.clients.service.CustomerService;
 import com.demo.jwtsec.entities.shifts.models.Shift;
 import com.demo.jwtsec.entities.shifts.models.dtos.ShiftRequest;
 import com.demo.jwtsec.entities.shifts.models.dtos.ShiftResponse;
 import com.demo.jwtsec.entities.shifts.service.ShiftService;
+import com.demo.jwtsec.loginjwt.auth.User.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,20 +17,21 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v2/admin")
+@RequestMapping("/api/admin")
 @RequiredArgsConstructor
 public class AdminController {
-
-    private final CustomerService customerService;
-    private final ShiftService shiftService;
-    //TODO acciones permitidas para admins -> readUserProfiles();
-
     //Testing;
     @GetMapping("/test")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String welcome(){
         return "HOla";
     }
+
+    private final CustomerService customerService;
+    private final ShiftService shiftService;
+    //TODO acciones permitidas para admins -> readUserProfiles();
+
+
     //-------------------- Shifts -----------------------------------------------------
 
     @PostMapping("/addShift")
@@ -68,7 +69,7 @@ public class AdminController {
     //-------------------- Customers -----------------------------------------------------
     @GetMapping("/{id_customer}/readProfile")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Customer> getCustomerProfile(@PathVariable Long id, @RequestBody CustomerResponse customerResponse){
+    public ResponseEntity<User> getCustomerProfile(@PathVariable Integer id, @RequestBody CustomerResponse customerResponse){
         return ResponseEntity.ok(customerService.getCustomerProfileById(id, customerResponse));
     }
 }

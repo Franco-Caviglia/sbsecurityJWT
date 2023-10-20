@@ -1,5 +1,5 @@
 package com.demo.jwtsec.entities.clients.models;
-
+/*
 import com.demo.jwtsec.entities.shifts.models.Shift;
 import com.demo.jwtsec.loginjwt.auth.User.Role;
 import jakarta.persistence.*;
@@ -72,3 +72,4 @@ public class Customer implements UserDetails {
         return true;
     }
 }
+*/

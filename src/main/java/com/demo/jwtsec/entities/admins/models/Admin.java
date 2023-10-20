@@ -1,5 +1,5 @@
 package com.demo.jwtsec.entities.admins.models;
-
+/*
 
 import com.demo.jwtsec.loginjwt.auth.User.Role;
 import jakarta.persistence.*;
@@ -59,3 +59,4 @@ public class Admin implements UserDetails {
         return true;
     }
 }
+*/

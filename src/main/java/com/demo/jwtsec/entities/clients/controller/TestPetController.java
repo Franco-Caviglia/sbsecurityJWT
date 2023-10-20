@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/test/pets")
 @RequiredArgsConstructor
 public class TestPetController {
-
+    /*
     private final CustomerService customerService;
 
     @PostMapping("/addPet")
@@ -29,4 +29,6 @@ public class TestPetController {
     public ResponseEntity<List<Pets>> getPets(){
         return ResponseEntity.ok(customerService.getAllPets());
     }
+
+     */
 }

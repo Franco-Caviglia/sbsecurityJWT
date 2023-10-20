@@ -29,8 +29,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests( authRequest ->
                         authRequest
                                 .requestMatchers("/auth/**").permitAll()//Indica que todos los request con ruta /auth/ es publico;
-                                .requestMatchers("/api/v2/admin/**").hasRole("ADMINISTRATOR")//Rutas para el rol de admin;
-                                .requestMatchers("/api/v2/user/**").hasAnyRole("USER", "ADMINISTRATOR")//Rutas para el rol de user;
+                                .requestMatchers("/api/admin/**").hasAuthority("ADMINISTRATOR")//Rutas para el rol de admin;
+                                .requestMatchers("/api/user/**").hasAnyAuthority("USER", "ADMINISTRATOR")//Rutas para el rol de user;
                                 .requestMatchers("/test/**").permitAll()//Zona de pruebas para el postman;
                                 .anyRequest().authenticated())
                 .sessionManagement(sessionManager ->

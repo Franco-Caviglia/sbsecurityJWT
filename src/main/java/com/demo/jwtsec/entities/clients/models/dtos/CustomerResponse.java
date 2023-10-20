@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +22,6 @@ public class CustomerResponse {
     private String email;
     private String phone;
     private List<Pets> pets = new ArrayList<>();
-    private List<Shift> shifts = new ArrayList<>();
+    private Set<Shift> shifts = new HashSet<>();
 
 }

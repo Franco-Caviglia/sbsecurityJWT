@@ -1,5 +1,7 @@
 package com.demo.jwtsec.loginjwt.auth.User;
 
+import com.demo.jwtsec.entities.clients.models.Pets;
+import com.demo.jwtsec.entities.shifts.models.Shift;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +12,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,7 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Table(name = "\"users\"", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
-public class User implements UserDetails {
+public class User implements UserDetails, GrantedAuthority {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     @Column(nullable = false)
@@ -26,6 +30,11 @@ public class User implements UserDetails {
     String password;
     String phone;
     String email;
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Pets.class)
+    List<Pets> pets;
+
+    @OneToMany
+    Set<Shift> shifts = new HashSet<>();
     @Enumerated(EnumType.STRING)
     Role role;
 
@@ -53,5 +62,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String getAuthority() {
+        return role.name();
     }
 }

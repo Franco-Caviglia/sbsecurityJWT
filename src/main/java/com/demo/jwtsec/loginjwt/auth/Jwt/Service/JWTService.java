@@ -23,12 +23,16 @@ public class JWTService {
     private static final String SECRET_KEY = "586E3272357538782F413F4428472B4B6250655368566B597033733676397924";
 
     public String getToken(UserDetails userDetails) {
-        return getToken(new HashMap<>(), userDetails); //Hashmap se usa para pares de clave:valor; Los vamos a utilizar para los claims
+        Map<String, Object> extraClaim = new HashMap<>();
+        extraClaim.put("role" , userDetails.getAuthorities().toString());
+        return getToken(extraClaim, userDetails); //Hashmap se usa para pares de clave:valor; Los vamos a utilizar para los claims
     }
 
     private String getToken(Map<String, Object> extraClaim, UserDetails userDetails) {
         return Jwts
                 .builder()
+                .claim("authorities",
+                        extraClaim.get("role"))
                 .setClaims(extraClaim)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -44,9 +48,11 @@ public class JWTService {
 
 
     public String getUsernameFromToken(String token) {
+
         return
                 getClaim(token, Claims::getSubject); //En subject vamos a tener alojado el username;
     }
+
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);

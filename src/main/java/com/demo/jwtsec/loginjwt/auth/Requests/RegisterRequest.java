@@ -1,9 +1,12 @@
 package com.demo.jwtsec.loginjwt.auth.Requests;
 
+import com.demo.jwtsec.loginjwt.auth.User.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,5 +18,6 @@ public class RegisterRequest {
     String password;
     String email;
     String phone;
+    List<Role> role;
 
 }

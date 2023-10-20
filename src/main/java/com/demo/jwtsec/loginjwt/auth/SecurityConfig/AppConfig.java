@@ -1,6 +1,5 @@
 package com.demo.jwtsec.loginjwt.auth.SecurityConfig;
 
-import com.demo.jwtsec.entities.admins.repository.AdminRepository;
 import com.demo.jwtsec.loginjwt.auth.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class AppConfig {
 
-    private final AdminRepository adminRepository;
+    private final UserRepository userRepository;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
@@ -41,7 +40,7 @@ public class AppConfig {
 
     @Bean
     public UserDetailsService userDetailService() {
-        return username -> adminRepository.findByUsername(username)
+        return username -> userRepository.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

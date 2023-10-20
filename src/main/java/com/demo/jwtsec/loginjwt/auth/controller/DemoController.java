@@ -2,6 +2,7 @@ package com.demo.jwtsec.loginjwt.auth.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class DemoController {
 
-    @PostMapping("/demo")
+    @GetMapping("/demo")
     public String welcome(){
         return "Welcome from secure endpoint";
     }

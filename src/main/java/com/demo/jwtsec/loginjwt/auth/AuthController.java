@@ -16,23 +16,22 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping(value = "loginAdmin")
-    public ResponseEntity<AuthResponse> loginAdmin(@RequestBody LoginRequest loginRequest){
-        return ResponseEntity.ok(authService.loginAdmin(loginRequest));
+    //Endpoint para iniciar sesion;
+    @PostMapping(value = "login")
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest){
+        return ResponseEntity.ok(authService.login(loginRequest));
     }
 
+
+    //Endpoint para registrarse como usuario;
+    @PostMapping(value = "registerUser")
+    public ResponseEntity<AuthResponse> registerUser(@RequestBody RegisterRequest registerRequest){
+        return ResponseEntity.ok(authService.registerUser(registerRequest));
+    }
+
+    //Endpoint para registrarse como administrador;
     @PostMapping(value = "registerAdmin")
     public ResponseEntity<AuthResponse> registerAdmin(@RequestBody RegisterRequest registerRequest){
         return ResponseEntity.ok(authService.registerAdmin(registerRequest));
-    }
-
-    @PostMapping(value = "loginCustomer")
-    public ResponseEntity<AuthResponse> loginUser(@RequestBody LoginRequest loginRequest){
-        return ResponseEntity.ok(authService.loginUser(loginRequest));
-    }
-
-    @PostMapping(value = "registerCustomer")
-    public ResponseEntity<AuthResponse> registerUser(@RequestBody RegisterRequest registerRequest){
-        return ResponseEntity.ok(authService.registerUser(registerRequest));
     }
 }

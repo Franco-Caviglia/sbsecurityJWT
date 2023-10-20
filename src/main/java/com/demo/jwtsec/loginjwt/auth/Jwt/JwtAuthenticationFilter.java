@@ -1,6 +1,7 @@
 package com.demo.jwtsec.loginjwt.auth.Jwt;
 
 import com.demo.jwtsec.loginjwt.auth.Jwt.Service.JWTService;
+import com.demo.jwtsec.loginjwt.auth.User.Role;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
