@@ -1,41 +1,28 @@
-package com.demo.jwtsec.entities.clients.service;
+package com.demo.jwtsec.entities.pets.service;
 
-import com.demo.jwtsec.entities.clients.models.Pets;
-import com.demo.jwtsec.entities.clients.models.dtos.CustomerResponse;
-import com.demo.jwtsec.entities.clients.models.dtos.PetRequest;
-import com.demo.jwtsec.entities.clients.models.dtos.PetResponse;
-import com.demo.jwtsec.entities.clients.repository.PetRepository;
-import com.demo.jwtsec.entities.shifts.models.Shift;
+import com.demo.jwtsec.entities.pets.models.Pets;
+import com.demo.jwtsec.entities.pets.models.dtos.PetRequest;
+import com.demo.jwtsec.entities.pets.models.dtos.PetResponse;
+import com.demo.jwtsec.entities.pets.repository.PetRepository;
 import com.demo.jwtsec.exceptions.ResourceNotFoundException;
 import com.demo.jwtsec.loginjwt.auth.Repository.UserRepository;
 import com.demo.jwtsec.loginjwt.auth.User.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerService {
+public class PetService {
 
     private final UserRepository userRepository;
     private final PetRepository petRepository;
-    public User getCustomerProfileById(Integer id, CustomerResponse customerResponse) {
-        User customer = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + id));
-
-        customer.setEmail(customerResponse.getEmail());
-        customer.setPets(customerResponse.getPets());
-        customer.setPhone(customerResponse.getPhone());
-        customer.setUsername(customerResponse.getUsername());
-        customer.setShifts(customerResponse.getShifts());
-
-        return customer;
-    }
-
 
     public Pets addPetProfile(PetRequest petRequest){
+
         Pets pet = Pets.builder()
                 .petName(petRequest.getPetName())
                 .petAge(petRequest.getPetAge())
@@ -44,6 +31,7 @@ public class CustomerService {
                 .build();
 
         petRepository.save(pet);
+
         return pet;
     }
 
@@ -57,6 +45,7 @@ public class CustomerService {
 
         pet.setPetName(petResponse.getPetName());
         pet.setPetAge(petResponse.getPetAge());
+
         pet.setPetType(petResponse.getPetType());
         pet.setBreed(petResponse.getBreed());
 

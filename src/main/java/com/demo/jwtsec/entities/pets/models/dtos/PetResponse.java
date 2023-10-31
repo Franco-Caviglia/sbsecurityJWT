@@ -1,5 +1,6 @@
-package com.demo.jwtsec.entities.clients.models.dtos;
+package com.demo.jwtsec.entities.pets.models.dtos;
 
+import com.demo.jwtsec.loginjwt.auth.User.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,4 +15,6 @@ public class PetResponse {
     private String breed;//raza del animal;
     private String petType;//tipo de animal;
     private Integer petAge;
+
+    private User username;
 }

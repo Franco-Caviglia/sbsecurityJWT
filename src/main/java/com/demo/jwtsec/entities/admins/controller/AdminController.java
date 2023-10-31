@@ -1,8 +1,6 @@
 package com.demo.jwtsec.entities.admins.controller;
 
 
-import com.demo.jwtsec.entities.clients.models.dtos.CustomerResponse;
-import com.demo.jwtsec.entities.clients.service.CustomerService;
 import com.demo.jwtsec.entities.shifts.models.Shift;
 import com.demo.jwtsec.entities.shifts.models.dtos.ShiftRequest;
 import com.demo.jwtsec.entities.shifts.models.dtos.ShiftResponse;
@@ -27,7 +25,6 @@ public class AdminController {
         return "HOla";
     }
 
-    private final CustomerService customerService;
     private final ShiftService shiftService;
     //TODO acciones permitidas para admins -> readUserProfiles();
 
@@ -46,19 +43,19 @@ public class AdminController {
         return ResponseEntity.ok(shiftService.getAllShifts().getBody());
     }
 
-    @PutMapping("/{id_shift}/markCompleteShifts")
+    @PutMapping("/{id}/markCompleteShifts")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Shift> markCompleteShifts(@PathVariable Long id, @RequestBody ShiftResponse shiftResponse){
         return ResponseEntity.ok(shiftService.markCompleteShifts(id, shiftResponse));
     }
 
-    @PutMapping("/{id_shift}/editShifts")
+    @PutMapping("/{id}/editShifts")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Shift> editShifts(@PathVariable Long id, @RequestBody ShiftResponse shiftResponse){
         return ResponseEntity.ok(shiftService.editShifts(id, shiftResponse));
     }
 
-    @DeleteMapping("/{id_shift}/deleteShifts")
+    @DeleteMapping("/{id}/deleteShifts")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Map<String, Boolean>> deleteShift(@PathVariable Long id){
         return ResponseEntity.ok(shiftService.deleteShift(id));
@@ -67,9 +64,9 @@ public class AdminController {
     //-------------------- Shifts -----------------------------------------------------
 
     //-------------------- Customers -----------------------------------------------------
-    @GetMapping("/{id_customer}/readProfile")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<User> getCustomerProfile(@PathVariable Integer id, @RequestBody CustomerResponse customerResponse){
-        return ResponseEntity.ok(customerService.getCustomerProfileById(id, customerResponse));
-    }
+    //@GetMapping("/{id_customer}/readProfile")
+    //@ResponseStatus(HttpStatus.OK)
+    //public ResponseEntity<User> getCustomerProfile(@PathVariable Integer id, @RequestBody CustomerResponse customerResponse){
+   //     return ResponseEntity.ok(customerService.getCustomerProfileById(id, customerResponse));
+    //}
 }
