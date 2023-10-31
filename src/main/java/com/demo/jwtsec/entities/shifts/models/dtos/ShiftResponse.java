@@ -15,6 +15,8 @@ import java.time.LocalTime;
 public class ShiftResponse {
 
     private String petName;
+    private String email;
+    private String disease;
     private LocalDate date;
     private LocalTime time;
     private String status;

@@ -1,7 +1,8 @@
 package com.demo.jwtsec.loginjwt.auth.User;
 
-import com.demo.jwtsec.entities.clients.models.Pets;
+import com.demo.jwtsec.entities.pets.models.Pets;
 import com.demo.jwtsec.entities.shifts.models.Shift;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,30 +12,29 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
 @Table(name = "\"users\"", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User implements UserDetails, GrantedAuthority {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    Long id;
     @Column(nullable = false)
     String username;
     String password;
     String phone;
     String email;
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Pets.class)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     List<Pets> pets;
 
-    @OneToMany
-    Set<Shift> shifts = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    List<Shift> shifts;
+
     @Enumerated(EnumType.STRING)
     Role role;
 

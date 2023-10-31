@@ -1,27 +1,21 @@
-package com.demo.jwtsec.entities.clients.models;
+package com.demo.jwtsec.entities.pets.models.dtos;
 
 
-import jakarta.persistence.*;
+import com.demo.jwtsec.loginjwt.auth.User.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "pets")
-public class Pets {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class PetRequest {
     private String petName;
     private String breed;//raza del animal;
     private String petType;//tipo de animal;
     private Integer petAge;
 
-
+    private User username;
 }

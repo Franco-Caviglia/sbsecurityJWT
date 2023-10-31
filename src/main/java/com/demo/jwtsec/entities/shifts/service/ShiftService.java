@@ -5,6 +5,9 @@ import com.demo.jwtsec.entities.shifts.models.dtos.ShiftRequest;
 import com.demo.jwtsec.entities.shifts.models.dtos.ShiftResponse;
 import com.demo.jwtsec.entities.shifts.repository.ShiftRepository;
 import com.demo.jwtsec.exceptions.ResourceNotFoundException;
+import com.demo.jwtsec.loginjwt.auth.Repository.UserRepository;
+import com.demo.jwtsec.loginjwt.auth.Requests.RegisterRequest;
+import com.demo.jwtsec.loginjwt.auth.User.User;
 import com.demo.jwtsec.mailsender.model.Email;
 import com.demo.jwtsec.mailsender.service.EmailService;
 import lombok.RequiredArgsConstructor;
@@ -22,17 +25,23 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ShiftService {
 
-    private EmailService emailService;
-    @Autowired
-    private ShiftRepository shiftRepository;
+
+    private final EmailService emailService;
+    private final ShiftRepository shiftRepository;
+    private final UserRepository userRepository;
 
     //TODO guardar el turno;
     public ResponseEntity<Shift> registerShift(ShiftRequest shiftRequest){
         String status = "pending";
+
+
+
         Shift shift = Shift.builder()
                 .date(shiftRequest.getDate())
                 .time(shiftRequest.getTime())
                 .petName(shiftRequest.getPetName())
+                .email(shiftRequest.getEmail())
+                .disease(shiftRequest.getDisease())
                 .build();
         shift.setStatus(status);
 
@@ -41,7 +50,13 @@ public class ShiftService {
 
         shiftRepository.save(shift);
         //TODO configurar email con datos del turno;
-        //emailService.sendEmailShiftSubmit(new Email(), shiftRequest);
+        if( emailService != null){
+            emailService.sendEmailShiftSubmit(new Email(), shiftRequest);
+            emailService.sendEmailAdminShiftSubmit(new Email(), shiftRequest);
+        }else {
+            System.out.println("No funciono el mail sender");
+        }
+
         return ResponseEntity.ok(shift);
     }
 
@@ -49,12 +64,7 @@ public class ShiftService {
         return ResponseEntity.ok(shiftRepository.findAll());
     }
 
-    public ResponseEntity<Shift> markShiftAsComplete(ShiftRequest shiftRequest){
-        Shift shift = Shift.builder()
-                .status(shiftRequest.getStatus())
-                .build();
-        return ResponseEntity.ok(shift);
-    }
+
 
 
     public Shift markCompleteShifts(Long id, ShiftResponse shiftResponse) {
@@ -81,12 +91,15 @@ public class ShiftService {
                 .orElseThrow(() -> new ResourceNotFoundException("Shift not found with id: " + id));
 
         shift.setPetName(shiftResponse.getPetName());
+        shift.setEmail(shiftResponse.getEmail());
+        shift.setDisease(shiftResponse.getDisease());
         shift.setDate(shiftResponse.getDate());
         shift.setTime(shiftResponse.getTime());
 
         LocalDateTime shiftTime = LocalDateTime.parse(shift.getDate() + "T" + shift.getTime());
         shift.setDateTime(shiftTime);
 
+        shiftRepository.save(shift);
         return shift;
     }
 }

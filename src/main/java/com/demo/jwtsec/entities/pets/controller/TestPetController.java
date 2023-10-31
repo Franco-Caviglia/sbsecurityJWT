@@ -1,9 +1,10 @@
-package com.demo.jwtsec.entities.clients.controller;
+package com.demo.jwtsec.entities.pets.controller;
 
 
-import com.demo.jwtsec.entities.clients.models.Pets;
-import com.demo.jwtsec.entities.clients.models.dtos.PetRequest;
-import com.demo.jwtsec.entities.clients.service.CustomerService;
+import com.demo.jwtsec.entities.pets.models.Pets;
+import com.demo.jwtsec.entities.pets.models.dtos.PetRequest;
+import com.demo.jwtsec.entities.pets.service.PetService;
+import com.demo.jwtsec.loginjwt.auth.User.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,20 +16,20 @@ import java.util.List;
 @RequestMapping("/test/pets")
 @RequiredArgsConstructor
 public class TestPetController {
-    /*
-    private final CustomerService customerService;
 
-    @PostMapping("/addPet")
+    private final PetService petService;
+
+    @PostMapping("/{id}/addPet")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Pets> addPetToList(@RequestBody PetRequest petRequest){
-        return ResponseEntity.ok(customerService.addPetProfile(petRequest));
+        return ResponseEntity.ok(petService.addPetProfile( petRequest));
     }
 
     @GetMapping("/readPets")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Pets>> getPets(){
-        return ResponseEntity.ok(customerService.getAllPets());
+        return ResponseEntity.ok(petService.getAllPets());
     }
 
-     */
+
 }
