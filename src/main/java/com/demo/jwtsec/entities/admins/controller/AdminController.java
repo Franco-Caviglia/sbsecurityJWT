@@ -1,6 +1,10 @@
 package com.demo.jwtsec.entities.admins.controller;
 
 
+import com.demo.jwtsec.entities.pets.models.Pets;
+import com.demo.jwtsec.entities.pets.models.dtos.PetRequest;
+import com.demo.jwtsec.entities.pets.models.dtos.PetResponse;
+import com.demo.jwtsec.entities.pets.service.PetService;
 import com.demo.jwtsec.entities.shifts.models.Shift;
 import com.demo.jwtsec.entities.shifts.models.dtos.ShiftRequest;
 import com.demo.jwtsec.entities.shifts.models.dtos.ShiftResponse;
@@ -25,17 +29,20 @@ public class AdminController {
         return "HOla";
     }
 
+    private final PetService petService;
     private final ShiftService shiftService;
     //TODO acciones permitidas para admins -> readUserProfiles();
 
 
+
     //-------------------- Shifts -----------------------------------------------------
 
-    @PostMapping("/addShift")
+    /*
+    @PostMapping("/addShift/{user_id}/{id}")//El id es de la mascota, este metodo es para asociar un turno a una mascota que ya tiene un dueño registrado en la pagina;
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Shift> registerShift(@RequestBody ShiftRequest shiftRequest){
-        return ResponseEntity.ok(shiftService.registerShift(shiftRequest).getBody());
-    }
+    public ResponseEntity<Shift> registerShift(@PathVariable Long user_id, Long pet_id, @RequestBody ShiftRequest shiftRequest){
+        return ResponseEntity.ok(shiftService.registerShift(shiftRequest, user_id, pet_id).getBody());
+    } */
 
     @GetMapping("/readAllShifts")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -62,6 +69,29 @@ public class AdminController {
     }
 
     //-------------------- Shifts -----------------------------------------------------
+
+    //-------------------- Pets -----------------------------------------------------
+    //Agrega la mascota al usuario seleccionado el cual se identifica por id;
+    @PostMapping("/{id}/addPet")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<PetResponse> addPetToList(@PathVariable Long id, @RequestBody PetRequest petRequest){
+        return ResponseEntity.ok(petService.addPetProfileFromAdmin(id, petRequest));
+    }
+
+    @GetMapping("/{userid}/readPets")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<PetResponse>> getPets(@PathVariable Long userid){
+        return ResponseEntity.ok(petService.getUserPets(userid));
+    }
+
+    @PutMapping("/{id}/editPet")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<PetResponse> editPet(@PathVariable Long id, @RequestBody PetResponse petResponse){
+        return ResponseEntity.ok(petService.editPet(id, petResponse));
+    }
+
+
+
 
     //-------------------- Customers -----------------------------------------------------
     //@GetMapping("/{id_customer}/readProfile")

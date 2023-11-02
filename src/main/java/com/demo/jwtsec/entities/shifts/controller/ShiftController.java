@@ -20,12 +20,12 @@ public class ShiftController {
 
     private final ShiftService shiftService;
 
-    @PostMapping("/register")
+    /* @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Shift> registerShift(@RequestBody ShiftRequest shiftRequest){
         Shift shift = shiftService.registerShift(shiftRequest).getBody();
         return ResponseEntity.ok(shift);
-    }
+    } */
 
     @GetMapping("/read")
     @ResponseStatus(HttpStatus.ACCEPTED)

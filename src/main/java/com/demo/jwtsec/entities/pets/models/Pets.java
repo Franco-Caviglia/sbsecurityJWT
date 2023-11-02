@@ -1,13 +1,17 @@
 package com.demo.jwtsec.entities.pets.models;
 
 
+import com.demo.jwtsec.entities.pets.repository.PetRepository;
 import com.demo.jwtsec.entities.shifts.models.Shift;
 import com.demo.jwtsec.loginjwt.auth.User.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -25,11 +29,9 @@ public class Pets {
     private String petType;//tipo de animal;
     private Integer petAge;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "username")
-    private User user;
 
-    @OneToOne(mappedBy = "pets")
-    private Shift shiftDetails;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }
