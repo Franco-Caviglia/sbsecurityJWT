@@ -1,6 +1,7 @@
 package com.demo.jwtsec.entities.shifts.models;
 
 import com.demo.jwtsec.entities.pets.models.Pets;
+import com.demo.jwtsec.loginjwt.auth.User.Response.UserResponse;
 import com.demo.jwtsec.loginjwt.auth.User.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,12 +28,14 @@ public class Shift {
     @Column(name = "date")
     private LocalDate date;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "username", referencedColumnName = "username")
-    private Pets pets;
 
+    /*
+    //------------------------
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
+    //---------------------------
+    */
 
     private String email;//email de confirmacion;
 

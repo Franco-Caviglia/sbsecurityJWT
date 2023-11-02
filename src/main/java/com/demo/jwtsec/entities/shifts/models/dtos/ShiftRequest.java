@@ -1,6 +1,7 @@
 package com.demo.jwtsec.entities.shifts.models.dtos;
 
 
+import com.demo.jwtsec.entities.shifts.models.Shift;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +24,14 @@ public class ShiftRequest {
     private LocalDate date;
     private LocalTime time;
     private LocalDateTime dateTime;
+
+    public Shift toShift(){
+        return Shift.builder()
+                .date(date)
+                .time(time)
+                .petName(petName)
+                .email(email)
+                .disease(disease)
+                .build();
+    }
 }

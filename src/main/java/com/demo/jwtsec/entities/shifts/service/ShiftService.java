@@ -1,17 +1,19 @@
 package com.demo.jwtsec.entities.shifts.service;
 
+import com.demo.jwtsec.entities.pets.models.Pets;
+import com.demo.jwtsec.entities.pets.repository.PetRepository;
+import com.demo.jwtsec.entities.pets.service.PetService;
 import com.demo.jwtsec.entities.shifts.models.Shift;
 import com.demo.jwtsec.entities.shifts.models.dtos.ShiftRequest;
 import com.demo.jwtsec.entities.shifts.models.dtos.ShiftResponse;
 import com.demo.jwtsec.entities.shifts.repository.ShiftRepository;
 import com.demo.jwtsec.exceptions.ResourceNotFoundException;
 import com.demo.jwtsec.loginjwt.auth.Repository.UserRepository;
-import com.demo.jwtsec.loginjwt.auth.Requests.RegisterRequest;
+import com.demo.jwtsec.loginjwt.auth.Service.UserService;
 import com.demo.jwtsec.loginjwt.auth.User.User;
 import com.demo.jwtsec.mailsender.model.Email;
 import com.demo.jwtsec.mailsender.service.EmailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,27 +21,34 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Service
 @RequiredArgsConstructor
 public class ShiftService {
 
-
+    private final PetService petService;
     private final EmailService emailService;
     private final ShiftRepository shiftRepository;
-    private final UserRepository userRepository;
+    private final PetRepository petRepository;
+    private final UserService userService;
+    private UserRepository userRepository;
+
 
     //TODO guardar el turno;
-    public ResponseEntity<Shift> registerShift(ShiftRequest shiftRequest){
+    /*public ResponseEntity<Shift> registerShift(ShiftRequest shiftRequest, Long user_id, Long pet_id){
         String status = "pending";
 
+        Optional<User> userId = Optional.ofNullable(userService.findById(user_id).orElseThrow(() -> new ResourceNotFoundException("User not found")));
 
+        Pets petId = petRepository.findById(pet_id).orElseThrow();
 
         Shift shift = Shift.builder()
                 .date(shiftRequest.getDate())
                 .time(shiftRequest.getTime())
-                .petName(shiftRequest.getPetName())
+                .petName(petId.getPetName())
+                .user(userId.get())
                 .email(shiftRequest.getEmail())
                 .disease(shiftRequest.getDisease())
                 .build();
@@ -47,6 +56,7 @@ public class ShiftService {
 
         LocalDateTime shiftTime = LocalDateTime.parse(shift.getDate() + "T" + shift.getTime());
         shift.setDateTime(shiftTime);
+
 
         shiftRepository.save(shift);
         //TODO configurar email con datos del turno;
@@ -58,9 +68,11 @@ public class ShiftService {
         }
 
         return ResponseEntity.ok(shift);
-    }
+    } */
+
 
     public ResponseEntity<List<Shift>> getAllShifts(){
+
         return ResponseEntity.ok(shiftRepository.findAll());
     }
 

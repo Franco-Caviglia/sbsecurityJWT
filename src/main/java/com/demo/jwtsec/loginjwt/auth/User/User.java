@@ -19,7 +19,6 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
 @Table(name = "\"users\"", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User implements UserDetails, GrantedAuthority {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +28,16 @@ public class User implements UserDetails, GrantedAuthority {
     String password;
     String phone;
     String email;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    List<Pets> pets;
 
-    @OneToMany(mappedBy = "user")
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    //List<Pets> pets;
+
+    /*
+    //=====================================
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Shift> shifts;
+    //====================================
+    */
 
     @Enumerated(EnumType.STRING)
     Role role;

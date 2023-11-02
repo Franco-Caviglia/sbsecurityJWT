@@ -11,10 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class PetResponse {
+    private Long petId;
     private String petName;
     private String breed;//raza del animal;
     private String petType;//tipo de animal;
     private Integer petAge;
+    private String username;
 
-    private User username;
 }
