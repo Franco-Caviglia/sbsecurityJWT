@@ -28,7 +28,8 @@ public class User implements UserDetails, GrantedAuthority {
     String password;
     String phone;
     String email;
-
+    @Enumerated(EnumType.STRING)
+    Role role;
     //@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     //List<Pets> pets;
 
@@ -39,8 +40,7 @@ public class User implements UserDetails, GrantedAuthority {
     //====================================
     */
 
-    @Enumerated(EnumType.STRING)
-    Role role;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

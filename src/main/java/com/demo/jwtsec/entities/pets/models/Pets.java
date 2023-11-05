@@ -34,4 +34,5 @@ public class Pets {
     @JoinColumn(name = "user_id")
     private User user;
 
+
 }

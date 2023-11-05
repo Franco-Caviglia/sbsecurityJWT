@@ -43,7 +43,11 @@ public class AdminController {
     public ResponseEntity<Shift> registerShift(@PathVariable Long user_id, Long pet_id, @RequestBody ShiftRequest shiftRequest){
         return ResponseEntity.ok(shiftService.registerShift(shiftRequest, user_id, pet_id).getBody());
     } */
-
+    @PostMapping("/{pet_id}/addShiftToPet")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<ShiftResponse> addShiftToPet(@PathVariable Long pet_id, @RequestBody ShiftRequest shiftRequest){
+        return ResponseEntity.ok(shiftService.registerShiftToPet(pet_id, shiftRequest));
+    }
     @GetMapping("/readAllShifts")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<Shift>> getAllShifts(){
@@ -69,6 +73,7 @@ public class AdminController {
     }
 
     //-------------------- Shifts -----------------------------------------------------
+
 
     //-------------------- Pets -----------------------------------------------------
     //Agrega la mascota al usuario seleccionado el cual se identifica por id;

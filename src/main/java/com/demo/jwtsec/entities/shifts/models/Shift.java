@@ -28,6 +28,9 @@ public class Shift {
     @Column(name = "date")
     private LocalDate date;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "pet_id")
+    private Pets pets;
 
     /*
     //------------------------
