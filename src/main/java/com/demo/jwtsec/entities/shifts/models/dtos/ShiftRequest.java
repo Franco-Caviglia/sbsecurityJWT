@@ -25,13 +25,4 @@ public class ShiftRequest {
     private LocalTime time;
     private LocalDateTime dateTime;
 
-    public Shift toShift(){
-        return Shift.builder()
-                .date(date)
-                .time(time)
-                .petName(petName)
-                .email(email)
-                .disease(disease)
-                .build();
-    }
 }

@@ -9,8 +9,6 @@ import com.demo.jwtsec.entities.shifts.models.dtos.ShiftResponse;
 import com.demo.jwtsec.entities.shifts.repository.ShiftRepository;
 import com.demo.jwtsec.exceptions.ResourceNotFoundException;
 import com.demo.jwtsec.loginjwt.auth.Repository.UserRepository;
-import com.demo.jwtsec.loginjwt.auth.Service.UserService;
-import com.demo.jwtsec.loginjwt.auth.User.User;
 import com.demo.jwtsec.mailsender.model.Email;
 import com.demo.jwtsec.mailsender.service.EmailService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 
 @Service
@@ -32,31 +29,27 @@ public class ShiftService {
     private final EmailService emailService;
     private final ShiftRepository shiftRepository;
     private final PetRepository petRepository;
-    private final UserService userService;
-    private UserRepository userRepository;
-
+    private final UserRepository userRepository;
 
     //TODO guardar el turno;
-    /*public ResponseEntity<Shift> registerShift(ShiftRequest shiftRequest, Long user_id, Long pet_id){
+    public ShiftResponse registerShiftToPet(Long pet_id, ShiftRequest shiftRequest){
         String status = "pending";
-
-        Optional<User> userId = Optional.ofNullable(userService.findById(user_id).orElseThrow(() -> new ResourceNotFoundException("User not found")));
 
         Pets petId = petRepository.findById(pet_id).orElseThrow();
 
         Shift shift = Shift.builder()
+
                 .date(shiftRequest.getDate())
                 .time(shiftRequest.getTime())
                 .petName(petId.getPetName())
-                .user(userId.get())
-                .email(shiftRequest.getEmail())
+                .email(petId.getUser().getEmail())
                 .disease(shiftRequest.getDisease())
                 .build();
         shift.setStatus(status);
+        shift.setPets(petId);
 
         LocalDateTime shiftTime = LocalDateTime.parse(shift.getDate() + "T" + shift.getTime());
         shift.setDateTime(shiftTime);
-
 
         shiftRepository.save(shift);
         //TODO configurar email con datos del turno;
@@ -67,8 +60,15 @@ public class ShiftService {
             System.out.println("No funciono el mail sender");
         }
 
-        return ResponseEntity.ok(shift);
-    } */
+        return ShiftResponse.builder()
+                .date(shift.getDate())
+                .disease(shift.getDisease())
+                .email(shift.getEmail())
+                .time(shift.getTime())
+                .status(shift.getStatus())
+                .petName(shift.getPetName())
+                .build();
+    }
 
 
     public ResponseEntity<List<Shift>> getAllShifts(){

@@ -94,7 +94,7 @@ public class EmailService {
             mailMessage.setSubject("Turno pedido por: " + shiftRequest.getDisease() + " registrado");
             mailMessage.setText("El turno para " + shiftRequest.getPetName() + " solicitado para el dia "
                     + shiftRequest.getDate() +
-                    "en el horario " + shiftRequest.getTime() + "ha sido creado con exito. Te esperamos!!!");
+                    " en el horario " + shiftRequest.getTime() + " ha sido creado con exito. Te esperamos!!!");
 
             javaMailSender.send(mailMessage);
 
