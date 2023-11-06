@@ -50,8 +50,8 @@ public class AdminController {
     }
     @GetMapping("/readAllShifts")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<List<Shift>> getAllShifts(){
-        return ResponseEntity.ok(shiftService.getAllShifts().getBody());
+    public ResponseEntity<List<ShiftResponse>> getAllShifts(){
+        return ResponseEntity.ok(shiftService.getAllShifts());
     }
 
     @PutMapping("/{id}/markCompleteShifts")

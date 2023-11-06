@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,9 +72,24 @@ public class ShiftService {
     }
 
 
-    public ResponseEntity<List<Shift>> getAllShifts(){
+    public List<ShiftResponse> getAllShifts(){
+        List<Shift> shifts = shiftRepository.findAll();
 
-        return ResponseEntity.ok(shiftRepository.findAll());
+        List<ShiftResponse> listShifts = new ArrayList<>();
+
+        for(Shift shift : shifts){
+            ShiftResponse shiftResponse = new ShiftResponse();
+            shiftResponse.setPetName(shift.getPetName());
+            shiftResponse.setDate(shift.getDate());
+            shiftResponse.setTime(shift.getTime());
+            shiftResponse.setEmail(shift.getEmail());
+            shiftResponse.setStatus(shift.getStatus());
+            shiftResponse.setDisease(shift.getDisease());
+
+            listShifts.add(shiftResponse);
+        }
+
+        return listShifts;
     }
 
 
