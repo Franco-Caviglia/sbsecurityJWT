@@ -29,8 +29,8 @@ public class ShiftController {
 
     @GetMapping("/read")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<List<Shift>> getShifts(){
-        return ResponseEntity.ok(shiftService.getAllShifts().getBody());
+    public ResponseEntity<List<ShiftResponse>> getShifts(){
+        return ResponseEntity.ok(shiftService.getAllShifts());
     }
 
     @PutMapping("/{id}/markCompleteShifts")
