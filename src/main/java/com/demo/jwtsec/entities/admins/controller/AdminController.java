@@ -21,6 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class AdminController {
     //Testing;
     @GetMapping("/test")
@@ -48,6 +49,7 @@ public class AdminController {
     public ResponseEntity<ShiftResponse> addShiftToPet(@PathVariable Long pet_id, @RequestBody ShiftRequest shiftRequest){
         return ResponseEntity.ok(shiftService.registerShiftToPet(pet_id, shiftRequest));
     }
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/readAllShifts")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<ShiftResponse>> getAllShifts(){

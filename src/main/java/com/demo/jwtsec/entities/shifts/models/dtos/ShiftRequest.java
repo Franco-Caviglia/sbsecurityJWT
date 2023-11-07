@@ -19,6 +19,7 @@ public class ShiftRequest {
 
     private String status;
     private String petName;
+    private String username;
     private String email;
     private String disease;
     private LocalDate date;

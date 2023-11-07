@@ -39,7 +39,8 @@ public class ShiftService {
         Pets petId = petRepository.findById(pet_id).orElseThrow();
 
         Shift shift = Shift.builder()
-
+                .pets(petId)
+                .username(petId.getUser())
                 .date(shiftRequest.getDate())
                 .time(shiftRequest.getTime())
                 .petName(petId.getPetName())
@@ -48,6 +49,7 @@ public class ShiftService {
                 .build();
         shift.setStatus(status);
         shift.setPets(petId);
+
 
         LocalDateTime shiftTime = LocalDateTime.parse(shift.getDate() + "T" + shift.getTime());
         shift.setDateTime(shiftTime);
@@ -62,7 +64,9 @@ public class ShiftService {
         }
 
         return ShiftResponse.builder()
+                .shift_id(shift.getId())
                 .date(shift.getDate())
+                .username(shift.getUsername().getUsername())
                 .disease(shift.getDisease())
                 .email(shift.getEmail())
                 .time(shift.getTime())
@@ -79,9 +83,11 @@ public class ShiftService {
 
         for(Shift shift : shifts){
             ShiftResponse shiftResponse = new ShiftResponse();
+            shiftResponse.setShift_id(shift.getId());
             shiftResponse.setPetName(shift.getPetName());
             shiftResponse.setDate(shift.getDate());
             shiftResponse.setTime(shift.getTime());
+            shiftResponse.setUsername(shift.getUsername().getUsername());
             shiftResponse.setEmail(shift.getEmail());
             shiftResponse.setStatus(shift.getStatus());
             shiftResponse.setDisease(shift.getDisease());
