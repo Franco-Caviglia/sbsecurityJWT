@@ -115,25 +115,10 @@ public class ShiftService {
                 .orElseThrow(() -> new ResourceNotFoundException("shift not found"));
 
         shiftRepository.delete(shift);
+
         Map<String, Boolean> answer = new HashMap<>();
         answer.put("delete", Boolean.TRUE);
         return answer;
     }
 
-    public Shift editShifts(Long id, ShiftResponse shiftResponse) {
-        Shift shift = shiftRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Shift not found with id: " + id));
-
-        shift.setPetName(shiftResponse.getPetName());
-        shift.setEmail(shiftResponse.getEmail());
-        shift.setDisease(shiftResponse.getDisease());
-        shift.setDate(shiftResponse.getDate());
-        shift.setTime(shiftResponse.getTime());
-
-        LocalDateTime shiftTime = LocalDateTime.parse(shift.getDate() + "T" + shift.getTime());
-        shift.setDateTime(shiftTime);
-
-        shiftRepository.save(shift);
-        return shift;
-    }
 }

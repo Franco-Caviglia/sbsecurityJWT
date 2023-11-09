@@ -30,15 +30,7 @@ public class User implements UserDetails, GrantedAuthority {
     String email;
     @Enumerated(EnumType.STRING)
     Role role;
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    //List<Pets> pets;
 
-    /*
-    //=====================================
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Shift> shifts;
-    //====================================
-    */
 
 
 
