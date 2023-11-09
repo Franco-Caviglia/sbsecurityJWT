@@ -9,6 +9,8 @@ import com.demo.jwtsec.entities.shifts.models.Shift;
 import com.demo.jwtsec.entities.shifts.models.dtos.ShiftRequest;
 import com.demo.jwtsec.entities.shifts.models.dtos.ShiftResponse;
 import com.demo.jwtsec.entities.shifts.service.ShiftService;
+import com.demo.jwtsec.loginjwt.auth.Service.UserService;
+import com.demo.jwtsec.loginjwt.auth.User.Response.UserResponse;
 import com.demo.jwtsec.loginjwt.auth.User.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,24 +34,19 @@ public class AdminController {
 
     private final PetService petService;
     private final ShiftService shiftService;
+    private final UserService userService;
     //TODO acciones permitidas para admins -> readUserProfiles();
-
 
 
     //-------------------- Shifts -----------------------------------------------------
 
-    /*
-    @PostMapping("/addShift/{user_id}/{id}")//El id es de la mascota, este metodo es para asociar un turno a una mascota que ya tiene un dueño registrado en la pagina;
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Shift> registerShift(@PathVariable Long user_id, Long pet_id, @RequestBody ShiftRequest shiftRequest){
-        return ResponseEntity.ok(shiftService.registerShift(shiftRequest, user_id, pet_id).getBody());
-    } */
+
     @PostMapping("/{pet_id}/addShiftToPet")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ShiftResponse> addShiftToPet(@PathVariable Long pet_id, @RequestBody ShiftRequest shiftRequest){
         return ResponseEntity.ok(shiftService.registerShiftToPet(pet_id, shiftRequest));
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @GetMapping("/readAllShifts")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<List<ShiftResponse>> getAllShifts(){
@@ -62,11 +59,13 @@ public class AdminController {
         return ResponseEntity.ok(shiftService.markCompleteShifts(id, shiftResponse));
     }
 
+    //Borrar y crear shift nuevo;
+    /*
     @PutMapping("/{id}/editShifts")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Shift> editShifts(@PathVariable Long id, @RequestBody ShiftResponse shiftResponse){
         return ResponseEntity.ok(shiftService.editShifts(id, shiftResponse));
-    }
+    } */
 
     @DeleteMapping("/{id}/deleteShifts")
     @ResponseStatus(HttpStatus.OK)
@@ -98,12 +97,18 @@ public class AdminController {
     }
 
 
-
-
     //-------------------- Customers -----------------------------------------------------
+
     //@GetMapping("/{id_customer}/readProfile")
     //@ResponseStatus(HttpStatus.OK)
     //public ResponseEntity<User> getCustomerProfile(@PathVariable Integer id, @RequestBody CustomerResponse customerResponse){
    //     return ResponseEntity.ok(customerService.getCustomerProfileById(id, customerResponse));
     //}
+    @GetMapping("/readAllUsers")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<List<UserResponse>> getAllUsers(){
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+
 }
