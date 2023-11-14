@@ -53,7 +53,7 @@ public class Shift {
 
     private String status;
 
-    @Column(unique = true)
+    @Column(name = "date_time", unique = true)
     private LocalDateTime dateTime;
 
 }

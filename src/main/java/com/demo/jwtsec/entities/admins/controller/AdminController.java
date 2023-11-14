@@ -55,7 +55,7 @@ public class AdminController {
 
     @PutMapping("/{id}/markCompleteShifts")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Shift> markCompleteShifts(@PathVariable Long id, @RequestBody ShiftResponse shiftResponse){
+    public ResponseEntity<ShiftResponse> markCompleteShifts(@PathVariable Long id, @RequestBody ShiftResponse shiftResponse){
         return ResponseEntity.ok(shiftService.markCompleteShifts(id, shiftResponse));
     }
 

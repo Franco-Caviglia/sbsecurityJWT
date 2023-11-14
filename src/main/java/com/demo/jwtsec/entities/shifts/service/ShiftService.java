@@ -49,10 +49,12 @@ public class ShiftService {
 
 
         LocalDateTime shiftTime = LocalDateTime.parse(shift.getDate() + "T" + shift.getTime());
-        if(shift.getStatus().equals("pending")){
-            shift.setDateTime(shiftTime);
-        }
-        
+
+        shift.setDateTime(shiftTime);
+
+
+        //Buscar turno por fecha y hora (shiftTime) y verificar si esta pending o complete;
+
 
         shiftRepository.save(shift);
         //TODO configurar email con datos del turno;
@@ -104,14 +106,24 @@ public class ShiftService {
 
 
 
-    public Shift markCompleteShifts(Long id, ShiftResponse shiftResponse) {
+    public ShiftResponse markCompleteShifts(Long id, ShiftResponse shiftResponse) {
         Shift shift =  shiftRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Shift not found with id: " + id));
 
         shift.setStatus("completado");
-        shift.setPets(new Pets());
 
-        return shiftRepository.save(shift);
+        shiftRepository.save(shift);
+
+        return ShiftResponse.builder()
+                .username(shift.getUsername().getUsername())
+                .date(shift.getDate())
+                .petName(shift.getPetName())
+                .disease(shift.getDisease())
+                .email(shift.getEmail())
+                .time(shift.getTime())
+                .status(shift.getStatus())
+                .id(shift.getId())
+                .build();
     }
 
     /* public Map<String, Boolean> deleteShift(Long id) {
