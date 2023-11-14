@@ -69,7 +69,7 @@ public class AdminController {
 
     @DeleteMapping("/{id}/deleteShifts")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Map<String, Boolean>> deleteShift(@PathVariable Long id){
+    public ResponseEntity<String> deleteShift(@PathVariable Long id){
         return ResponseEntity.ok(shiftService.deleteShift(id));
     }
 
@@ -88,6 +88,12 @@ public class AdminController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<PetResponse>> getPets(@PathVariable Long userid){
         return ResponseEntity.ok(petService.getUserPets(userid));
+    }
+
+    @GetMapping("/{petid}/readPet")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<PetResponse> getPetById(@PathVariable Long petid){
+        return ResponseEntity.ok(petService.getUserPet(petid));
     }
 
     @PutMapping("/{id}/editPet")

@@ -39,10 +39,10 @@ public class ShiftController {
         return ResponseEntity.ok(shiftService.markCompleteShifts(id, shiftResponse));
     }
 
-    @DeleteMapping("/{id}/deleteShifts")
+    /*@DeleteMapping("/{id}/deleteShifts")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Map<String, Boolean>> deleteShift(@PathVariable Long id){
         return ResponseEntity.ok(shiftService.deleteShift(id));
-    }
+    }*/
 
 }

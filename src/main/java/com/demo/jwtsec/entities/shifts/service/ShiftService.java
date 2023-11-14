@@ -9,17 +9,14 @@ import com.demo.jwtsec.entities.shifts.models.dtos.ShiftResponse;
 import com.demo.jwtsec.entities.shifts.repository.ShiftRepository;
 import com.demo.jwtsec.exceptions.ResourceNotFoundException;
 import com.demo.jwtsec.loginjwt.auth.Repository.UserRepository;
+import com.demo.jwtsec.loginjwt.auth.User.User;
 import com.demo.jwtsec.mailsender.model.Email;
 import com.demo.jwtsec.mailsender.service.EmailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -52,7 +49,10 @@ public class ShiftService {
 
 
         LocalDateTime shiftTime = LocalDateTime.parse(shift.getDate() + "T" + shift.getTime());
-        shift.setDateTime(shiftTime);
+        if(shift.getStatus().equals("pending")){
+            shift.setDateTime(shiftTime);
+        }
+        
 
         shiftRepository.save(shift);
         //TODO configurar email con datos del turno;
@@ -64,7 +64,7 @@ public class ShiftService {
         }
 
         return ShiftResponse.builder()
-                .shift_id(shift.getId())
+                .id(shift.getId())
                 .date(shift.getDate())
                 .username(shift.getUsername().getUsername())
                 .disease(shift.getDisease())
@@ -83,7 +83,7 @@ public class ShiftService {
 
         for(Shift shift : shifts){
             ShiftResponse shiftResponse = new ShiftResponse();
-            shiftResponse.setShift_id(shift.getId());
+            shiftResponse.setId(shift.getId());
             shiftResponse.setPetName(shift.getPetName());
             shiftResponse.setDate(shift.getDate());
             shiftResponse.setTime(shift.getTime());
@@ -92,7 +92,10 @@ public class ShiftService {
             shiftResponse.setStatus(shift.getStatus());
             shiftResponse.setDisease(shift.getDisease());
 
-            listShifts.add(shiftResponse);
+            if (shift.getStatus().equals("pending")){
+                listShifts.add(shiftResponse);
+            }
+
         }
 
         return listShifts;
@@ -105,12 +108,13 @@ public class ShiftService {
         Shift shift =  shiftRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Shift not found with id: " + id));
 
-        shift.setStatus(shiftResponse.getStatus());
+        shift.setStatus("completado");
+        shift.setPets(new Pets());
 
         return shiftRepository.save(shift);
     }
 
-    public Map<String, Boolean> deleteShift(Long id) {
+    /* public Map<String, Boolean> deleteShift(Long id) {
         Shift shift = shiftRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("shift not found"));
 
@@ -119,6 +123,19 @@ public class ShiftService {
         Map<String, Boolean> answer = new HashMap<>();
         answer.put("delete", Boolean.TRUE);
         return answer;
+    }*/
+
+    public String deleteShift(Long id){
+
+        Shift shift = shiftRepository.findById(id).orElseThrow();
+
+        //Borramos la info de las  FKs para evitar problemas de claves huerfanas;
+        shift.setPets(new Pets());
+        shift.setUsername(new User());
+
+
+        shiftRepository.deleteById(id);
+        return "Turno con id: " + id + " eliminado";
     }
 
 }

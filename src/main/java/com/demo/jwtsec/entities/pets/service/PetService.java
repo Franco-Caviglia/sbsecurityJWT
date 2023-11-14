@@ -86,4 +86,19 @@ public class PetService {
                 .username(pet.getUser().getUsername())
                 .build();
     }
+
+    public PetResponse getUserPet(Long petid) {
+
+        Pets pet = petRepository.findById(petid).orElseThrow();
+
+        return PetResponse.builder()
+                .petId(pet.getId())
+                .petName(pet.getPetName())
+                .petType(pet.getPetType())
+                .breed(pet.getBreed())
+                .petAge(pet.getPetAge())
+                .username(pet.getUser().getUsername())
+                .build();
+
+    }
 }

@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Builder
 public class ShiftResponse {
-    private Long shift_id;
+    private Long id;
     private String petName;
     private String username;
     private String email;
