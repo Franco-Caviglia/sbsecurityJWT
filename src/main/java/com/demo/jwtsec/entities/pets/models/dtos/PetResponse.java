@@ -15,7 +15,6 @@ public class PetResponse {
     private String petName;
     private String breed;//raza del animal;
     private String petType;//tipo de animal;
-    private Integer petAge;
+    private String petAge;
     private String username;
-
 }

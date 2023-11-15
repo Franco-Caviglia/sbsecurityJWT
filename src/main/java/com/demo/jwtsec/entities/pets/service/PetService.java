@@ -67,7 +67,7 @@ public class PetService {
 
     public PetResponse editPet(Long id, PetResponse petResponse) {
         Pets pet = petRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Shift not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Pet not found with id: " + id));
 
         pet.setPetName(petResponse.getPetName());
         pet.setPetAge(petResponse.getPetAge());
@@ -100,5 +100,16 @@ public class PetService {
                 .username(pet.getUser().getUsername())
                 .build();
 
+    }
+
+    public String deleteById(Long id) {
+        Pets pets = petRepository.findById(id).orElseThrow();
+        Long userId = pets.getUser().getId();
+
+        pets.setUser(new User());
+
+        petRepository.deleteById(id);
+
+        return "Mascota: " + id +" eliminada del usuario: " + userId;
     }
 }

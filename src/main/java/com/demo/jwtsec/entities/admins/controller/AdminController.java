@@ -59,14 +59,6 @@ public class AdminController {
         return ResponseEntity.ok(shiftService.markCompleteShifts(id, shiftResponse));
     }
 
-    //Borrar y crear shift nuevo;
-    /*
-    @PutMapping("/{id}/editShifts")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Shift> editShifts(@PathVariable Long id, @RequestBody ShiftResponse shiftResponse){
-        return ResponseEntity.ok(shiftService.editShifts(id, shiftResponse));
-    } */
-
     @DeleteMapping("/{id}/deleteShifts")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteShift(@PathVariable Long id){
@@ -92,8 +84,8 @@ public class AdminController {
 
     @GetMapping("/{petid}/readPet")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<PetResponse> getPetById(@PathVariable Long petid){
-        return ResponseEntity.ok(petService.getUserPet(petid));
+    public ResponseEntity<List<PetResponse>> getPetById(@PathVariable Long petid){
+        return ResponseEntity.ok(petService.getUserPets(petid));
     }
 
     @PutMapping("/{id}/editPet")
@@ -102,6 +94,11 @@ public class AdminController {
         return ResponseEntity.ok(petService.editPet(id, petResponse));
     }
 
+    @DeleteMapping("/{id}/deletePet")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> deletePet(@PathVariable Long id){
+        return ResponseEntity.ok(petService.deleteById(id));
+    }
 
     //-------------------- Customers -----------------------------------------------------
 

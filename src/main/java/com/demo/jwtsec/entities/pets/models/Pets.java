@@ -27,7 +27,7 @@ public class Pets {
     private String petName;
     private String breed;//raza del animal;
     private String petType;//tipo de animal;
-    private Integer petAge;
+    private String petAge;
 
 
     @ManyToOne(cascade = CascadeType.ALL)

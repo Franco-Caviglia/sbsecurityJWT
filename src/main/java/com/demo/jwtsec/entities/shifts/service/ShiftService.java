@@ -13,6 +13,7 @@ import com.demo.jwtsec.loginjwt.auth.User.User;
 import com.demo.jwtsec.mailsender.model.Email;
 import com.demo.jwtsec.mailsender.service.EmailService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,11 +24,9 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ShiftService {
 
-    private final PetService petService;
     private final EmailService emailService;
     private final ShiftRepository shiftRepository;
     private final PetRepository petRepository;
-    private final UserRepository userRepository;
 
     //TODO guardar el turno;
     public ShiftResponse registerShiftToPet(Long pet_id, ShiftRequest shiftRequest){
@@ -94,9 +93,9 @@ public class ShiftService {
             shiftResponse.setStatus(shift.getStatus());
             shiftResponse.setDisease(shift.getDisease());
 
-            if (shift.getStatus().equals("pending")){
-                listShifts.add(shiftResponse);
-            }
+
+            listShifts.add(shiftResponse);
+
 
         }
 
@@ -111,6 +110,7 @@ public class ShiftService {
                 .orElseThrow(() -> new ResourceNotFoundException("Shift not found with id: " + id));
 
         shift.setStatus("completado");
+        shift.setPets(new Pets());
 
         shiftRepository.save(shift);
 
@@ -125,17 +125,6 @@ public class ShiftService {
                 .id(shift.getId())
                 .build();
     }
-
-    /* public Map<String, Boolean> deleteShift(Long id) {
-        Shift shift = shiftRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("shift not found"));
-
-        shiftRepository.delete(shift);
-
-        Map<String, Boolean> answer = new HashMap<>();
-        answer.put("delete", Boolean.TRUE);
-        return answer;
-    }*/
 
     public String deleteShift(Long id){
 

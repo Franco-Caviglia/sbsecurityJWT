@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
@@ -21,5 +22,5 @@ public class ShiftResponse {
     private LocalDate date;
     private LocalTime time;
     private String status;
-
+    private LocalDateTime dateTime;
 }

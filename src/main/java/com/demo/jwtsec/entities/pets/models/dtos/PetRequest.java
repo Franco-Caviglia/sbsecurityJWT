@@ -17,6 +17,6 @@ public class PetRequest {
     private String petName;
     private String breed;//raza del animal;
     private String petType;//tipo de animal;
-    private Integer petAge;
+    private String petAge;
 
 }
