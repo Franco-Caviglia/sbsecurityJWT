@@ -30,7 +30,7 @@ public class ShiftService {
 
     //TODO guardar el turno;
     public ShiftResponse registerShiftToPet(Long pet_id, ShiftRequest shiftRequest){
-        String status = "pending";
+        String status = "Pendiente";
 
         Pets petId = petRepository.findById(pet_id).orElseThrow();
 
